@@ -68,10 +68,13 @@ int main(void){
 #### 2. 메뉴 화면으로 돌아가기
 - system 함수 활용
 	- 프로세스 단위로 시뮬레이터를 실행한 뒤 프로세스를 종료하며 이전 메뉴화면으로 돌아오도록 함.
+	
+<img src="https://user-images.githubusercontent.com/89283563/155839020-6cce8a36-1496-40e9-b23c-2903539dbefd.gif" width="400" height="400"/> 
+	
 ---
 	
 ### Makefile
-
+- 코딩 과정 중에 반복되는 명령어 입력을 생략하기 위한 Makefile 생성
 <details>
 <summary>Makefile 코드</summary>
 <div markdown="1">
@@ -151,4 +154,6 @@ SS.out : SS.c
 
 </div>
 </details>
+	
+- 위와 같은 Makefile 덕분에 명령어 하나로 원하는 .out 파일을 선택하여 컴파일링 가능
 
