@@ -1,5 +1,9 @@
-# supreme-couscous
----
+
+## 자료구조 알고리즘 통합 시뮬레이터
+###### 가온누리 자료구조 스터디
+
+
+### 시뮬레이터 구현
 <details>
 <summary>Simulator.c 코드</summary>
 <div markdown="1">
@@ -53,9 +57,18 @@ int main(void){
     return 0;
 }
  ```
-
+	
 </div>
 </details>
+	
+#### 1. 메뉴 선택 가능한 콘솔창
+- 사용자로부터 정수(1~7)을 입력받아 메뉴를 선택할 수 있도록 함.
+#### 2. 메뉴 화면으로 돌아가기
+- system 함수 활용
+	- 프로세스 단위로 시뮬레이터를 실행한 뒤 프로세스를 종료하며 이전 메뉴화면으로 돌아오도록 함.
+---
+	
+### Makefile
 
 <details>
 <summary>Makefile 코드</summary>
