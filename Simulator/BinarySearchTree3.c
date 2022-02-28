@@ -16,15 +16,14 @@ BSTData BSTGetNodeData(BTreeNode * bst)
 
 void BSTInsert(BTreeNode ** pRoot, BSTData data)
 {
-	BTreeNode * pNode = NULL;    // parent node
-	BTreeNode * cNode = *pRoot;    // current node
-	BTreeNode * nNode = NULL;    // new node
+	BTreeNode * pNode = NULL;    
+	BTreeNode * cNode = *pRoot;   
+	BTreeNode * nNode = NULL;    
 
-	// ���ο� ��尡 �߰��� ��ġ�� ã�´�.
 	while(cNode != NULL)
 	{
 		if(data == GetData(cNode))
-			return;    // Ű�� �ߺ��� ������� ����
+			return;    
 
 		pNode = cNode;
 
@@ -34,30 +33,27 @@ void BSTInsert(BTreeNode ** pRoot, BSTData data)
 			cNode = GetRightSubTree(cNode);
 	}
 	
-	// pNode�� ���� ��忡 �߰��� �� ����� ����
-	nNode = MakeBTreeNode();    // �� ����� ����
-	SetData(nNode, data);    // �� ��忡 ������ ����
-
-	// pNode�� ���� ��忡 �� ��带 �߰�
-	if(pNode != NULL)    // �� ��尡 ��Ʈ ��尡 �ƴ϶��,
+	nNode = MakeBTreeNode();   
+	SetData(nNode, data);   
+	if(pNode != NULL)    
 	{
 		if(data < GetData(pNode))
 			MakeLeftSubTree(pNode, nNode);
 		else
 			MakeRightSubTree(pNode, nNode);
 	}
-	else    // �� ��尡 ��Ʈ �����,
+	else  
 	{
 		*pRoot = nNode;
 	}
 	
-	*pRoot = Rebalance(pRoot);	// ��� �߰� �� ���뷱��
+	*pRoot = Rebalance(pRoot);
 }
 
 BTreeNode * BSTSearch(BTreeNode * bst, BSTData target)
 {
-	BTreeNode * cNode = bst;    // current node
-	BSTData cd;    // current data
+	BTreeNode * cNode = bst;   
+	BSTData cd;   
 
 	while(cNode != NULL)
 	{
@@ -76,18 +72,15 @@ BTreeNode * BSTSearch(BTreeNode * bst, BSTData target)
 
 BTreeNode * BSTRemove(BTreeNode ** pRoot, BSTData target)
 {
-	// ���� ����� ��Ʈ ����� ��츦 ������ �����ؾ� �Ѵ�.
 
-	BTreeNode * pVRoot = MakeBTreeNode();    // ���� ��Ʈ ���;
+	BTreeNode * pVRoot = MakeBTreeNode();   
 
-	BTreeNode * pNode = pVRoot;    // parent node
-	BTreeNode * cNode = *pRoot;    // current node
-	BTreeNode * dNode;    // delete node
+	BTreeNode * pNode = pVRoot;    
+	BTreeNode * cNode = *pRoot;   
+	BTreeNode * dNode;   
 
-	// ��Ʈ ��带 pVRoot�� ����Ű�� ����� ������ ���� ��尡 �ǰ� �Ѵ�.
 	ChangeRightSubTree(pVRoot, *pRoot);
 	
-	// ���� ����� ������ ��� Ž��
 	while(cNode != NULL && GetData(cNode) != target)
 	{
 		pNode = cNode;
@@ -98,10 +91,10 @@ BTreeNode * BSTRemove(BTreeNode ** pRoot, BSTData target)
 			cNode = GetRightSubTree(cNode);
 	}
 
-	if(cNode == NULL)    // ���� ����� �������� �ʴ´ٸ�,
+	if(cNode == NULL)    
 		return NULL;
 
-	dNode = cNode;    // ���� ����� dNode�� ����Ű�� �Ѵ�.
+	dNode = cNode;   
 
 	// ù ��° ���: ������ ��尡 �ܸ� ����� ���
 	if(GetLeftSubTree(dNode) == NULL && GetRightSubTree(dNode) == NULL)
@@ -112,11 +105,9 @@ BTreeNode * BSTRemove(BTreeNode ** pRoot, BSTData target)
 			RemoveRightSubTree(pNode);
 	}
 
-	// �� ��° ���: �ϳ��� �ڽ� ��带 ���� ���
 	else if(GetLeftSubTree(dNode) == NULL || GetRightSubTree(dNode) == NULL)
 	{
-		BTreeNode * dcNode;    // delete node�� �ڽ� ���
-
+		BTreeNode * dcNode;   
 		if(GetLeftSubTree(dNode) != NULL)
 			dcNode = GetLeftSubTree(dNode);
 		else
@@ -127,42 +118,36 @@ BTreeNode * BSTRemove(BTreeNode ** pRoot, BSTData target)
 		else
 			ChangeRightSubTree(pNode, dcNode);
 	}
-
-	// �� ��° ���: �� ���� �ڽ� ��带 ��� ���� ���
 	else
 	{
-		BTreeNode * mNode = GetRightSubTree(dNode);    // mininum node
-		BTreeNode * mpNode = dNode;    // mininum node�� �θ� ���
+		BTreeNode * mNode = GetRightSubTree(dNode);    
+		BTreeNode * mpNode = dNode;    
 		int delData;
 
-		// ������ ��带 ��ü�� ��带 ã�´�.
 		while(GetLeftSubTree(mNode) != NULL)
 		{
 			mpNode = mNode;
 			mNode = GetLeftSubTree(mNode);
 		}
 		
-		// ��ü�� ��忡 ����� ���� ������ ��忡 �����Ѵ�.
-		delData = GetData(dNode);    // ���� �� ������ ���
+		delData = GetData(dNode);    
 		SetData(dNode, GetData(mNode));
 
-		// ��ü�� ����� �θ� ���� �ڽ� ��带 �����Ѵ�.
 		if(GetLeftSubTree(mpNode) == mNode)
 			ChangeLeftSubTree(mpNode, GetRightSubTree(mNode));
 		else
 			ChangeRightSubTree(mpNode, GetRightSubTree(mNode));
 
 		dNode = mNode;
-		SetData(dNode, delData);    // ��� ������ ����
+		SetData(dNode, delData);   
 	}
 
-	// ������ ��尡 ��Ʈ ����� ��쿡 ���� ó��
 	if(GetRightSubTree(pVRoot) != *pRoot)
 		*pRoot = GetRightSubTree(pVRoot);
 
 	free(pVRoot);
 
-    *pRoot = Rebalance(pRoot); 	// ��� ���� �� ���뷱��!
+    *pRoot = Rebalance(pRoot); 	
 	return dNode;
 }
 

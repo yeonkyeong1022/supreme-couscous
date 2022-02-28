@@ -40,8 +40,6 @@ int GetHiPriChildIDX(Heap * ph, int idx)
 
 	else
 	{
-	//	if(ph->heapArr[GetLChildIDX(idx)].pr 
-	//				> ph->heapArr[GetRChildIDX(idx)].pr)
 		if(ph->comp(ph->heapArr[GetLChildIDX(idx)], 
 					ph->heapArr[GetRChildIDX(idx)]) < 0)
 			return GetRChildIDX(idx);
@@ -56,7 +54,6 @@ void HInsert(Heap * ph, HData data)
 
 	while(idx != 1)
 	{
-	//	if(pr < (ph->heapArr[GetParentIDX(idx)].pr))
 		if(ph->comp(data, ph->heapArr[GetParentIDX(idx)]) > 0)
 		{
 			ph->heapArr[idx] = ph->heapArr[GetParentIDX(idx)];
@@ -82,7 +79,6 @@ HData HDelete(Heap * ph)
 
 	while(childIdx = GetHiPriChildIDX(ph, parentIdx))
 	{
-	//	if(lastElem.pr <= ph->heapArr[childIdx].pr)
 		if(ph->comp(lastElem, ph->heapArr[childIdx]) >= 0)
 			break;
 
